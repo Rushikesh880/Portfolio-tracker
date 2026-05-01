@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id // Maps to Supabase auth.users ID
+  email     String    @unique
+  holdings  Holding[]
+  createdAt DateTime  @default(now())
+}
+
+enum AssetType {
+  STOCK
+  MUTUAL_FUND
+  GOLD_ETF
+  CASH
+}
+
+model Holding {
+  id            String    @id @default(uuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assetName     String
+  assetType     AssetType
+  quantity      Float
+  purchasePrice Float
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model PriceCache {
+  id              String    @id @default(uuid())
+  assetName       String
+  assetType       AssetType
+  currentPrice    Float
+  lastUpdated     DateTime  @default(now())
+  isErrorFallback Boolean   @default(false)
+
+  @@unique([assetName, assetType])
+}
