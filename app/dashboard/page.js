@@ -95,10 +95,12 @@ export default async function DashboardPage() {
                 Market Live
              </span>
              <span style={{ color: 'var(--border)' }}>|</span>
-             <span>Refreshed: {globalLastUpdated ? new Date(globalLastUpdated).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Never'}</span>
+             <span>Refreshed: {globalLastUpdated ? new Date(globalLastUpdated).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' }) : 'Never'}</span>
+
              {hasErrorFallback && (
-               <span style={{ color: 'var(--error)', fontWeight: '500', backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '2px 8px', borderRadius: '4px' }}>• API Limit Active</span>
+               <span style={{ color: '#f59e0b', fontWeight: '500', backgroundColor: 'rgba(245, 158, 11, 0.1)', padding: '2px 8px', borderRadius: '4px' }}>• Using Cached Data</span>
              )}
+
           </div>
         </div>
         <form action={manualRefresh}>
