@@ -43,10 +43,10 @@ app.prepare().then(() => {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              // Add a secret key here for production to prevent unauthorized triggers
               'Authorization': `Bearer CRON_SECRET`
             }
           })
+
           if (fetchRes.ok) {
              console.log("Successfully updated prices.")
           } else {

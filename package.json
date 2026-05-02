@@ -16,8 +16,10 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "recharts": "^3.8.1",
-    "yahoo-finance2": "^3.14.0"
+    "yahoo-finance2": "^3.14.0",
+    "@netlify/functions": "^2.6.0"
   },
+
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "eslint": "^9",
