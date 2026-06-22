@@ -55,7 +55,8 @@ export default function DashboardCard({ type, title, holdings }) {
         <table style={{ borderSpacing: '0 0.5rem', borderCollapse: 'separate', backgroundColor: 'transparent' }}>
           <thead>
             <tr>
-              <th style={{ backgroundColor: 'transparent', padding: '0.75rem 1rem' }}>{isCash ? 'Account / Item' : 'Asset'}</th>
+              <th style={{ backgroundColor: 'transparent', padding: '0.75rem 1rem' }}>{isCash ? 'Bank' : 'Asset'}</th>
+              {isCash && <th style={{ backgroundColor: 'transparent', padding: '0.75rem 1rem' }}>Category</th>}
               <th style={{ backgroundColor: 'transparent', padding: '0.75rem 1rem' }}>{isCash ? 'Current Amount' : 'Holdings'}</th>
               {!isCash && <th style={{ backgroundColor: 'transparent', padding: '0.75rem 1rem' }}>Avg. Cost</th>}
               {!isCash && <th style={{ backgroundColor: 'transparent', padding: '0.75rem 1rem' }}>Market Price</th>}
@@ -70,8 +71,15 @@ export default function DashboardCard({ type, title, holdings }) {
               return (
                 <tr key={h.id} className="table-row-hover" style={{ backgroundColor: 'var(--bg-card)', transition: 'all 0.2s ease' }}>
                   <td style={{ padding: '1.25rem 1rem', borderRadius: '12px 0 0 12px', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', borderLeft: '1px solid var(--border)' }}>
-                    <div style={{ fontWeight: '600', color: 'var(--text-main)', fontSize: '0.9375rem' }}>{h.asset_name}</div>
+                    <div style={{ fontWeight: '600', color: 'var(--text-main)', fontSize: '0.9375rem' }}>{isCash ? (h.bank_name || h.asset_name) : h.asset_name}</div>
                   </td>
+                  {isCash && (
+                    <td style={{ padding: '1.25rem 1rem', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', color: 'var(--text-muted)' }}>
+                      <span style={{ backgroundColor: 'var(--bg-surface)', padding: '4px 10px', borderRadius: '20px', fontSize: '0.8125rem', fontWeight: '500', color: 'var(--text-main)' }}>
+                        {h.fund_type || 'Cash'}
+                      </span>
+                    </td>
+                  )}
                   <td style={{ padding: '1.25rem 1rem', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
                     <span style={{ fontWeight: '600', color: isCash ? 'var(--primary)' : 'inherit', fontSize: isCash ? '1.125rem' : 'inherit' }}>
                       {isCash ? '₹' : ''}{h.quantity.toLocaleString('en-IN')}

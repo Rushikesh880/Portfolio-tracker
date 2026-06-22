@@ -56,6 +56,7 @@ export default async function DashboardPage() {
   const stocks = enrichedHoldings.filter(h => h.asset_type === 'STOCK')
   const mutualFunds = enrichedHoldings.filter(h => h.asset_type === 'MUTUAL_FUND')
   const goldETFs = enrichedHoldings.filter(h => h.asset_type === 'GOLD_ETF')
+  const silverETFs = enrichedHoldings.filter(h => h.asset_type === 'SILVER_ETF')
   const cash = enrichedHoldings.filter(h => h.asset_type === 'CASH')
 
   // Calculate Global Summary
@@ -151,7 +152,8 @@ export default async function DashboardPage() {
       <div style={{ display: 'grid', gap: '2.5rem' }}>
         <DashboardCard type="STOCK" title="Equities" holdings={stocks} />
         <DashboardCard type="MUTUAL_FUND" title="Mutual Funds" holdings={mutualFunds} />
-        <DashboardCard type="GOLD_ETF" title="Commodities" holdings={goldETFs} />
+        <DashboardCard type="GOLD_ETF" title="Gold ETFs" holdings={goldETFs} />
+        <DashboardCard type="SILVER_ETF" title="Silver ETFs" holdings={silverETFs} />
         <DashboardCard type="CASH" title="Liquid Assets" holdings={cash} />
       </div>
 

@@ -15,15 +15,24 @@ export async function addHolding(formData) {
   const asset_type = formData.get('asset_type')
   const quantity = parseFloat(formData.get('quantity'))
   const purchase_price = parseFloat(formData.get('purchase_price'))
+  const fund_type = formData.get('fund_type') || null
+  const bank_name = formData.get('bank_name') || null
 
   // Check if holding already exists
-  const { data: existingHolding, error: fetchError } = await supabase
+  let query = supabase
     .from('holdings')
     .select('id, quantity, purchase_price')
     .eq('asset_name', asset_name)
     .eq('asset_type', asset_type)
     .eq('user_id', user.id)
-    .single()
+
+  if (asset_type === 'CASH') {
+    query = query.eq('bank_name', bank_name).eq('fund_type', fund_type)
+  } else {
+    query = query.is('bank_name', null).is('fund_type', null)
+  }
+
+  const { data: existingHolding, error: fetchError } = await query.single()
 
   if (existingHolding) {
     // Calculate average price
@@ -50,7 +59,9 @@ export async function addHolding(formData) {
       asset_name,
       asset_type,
       quantity,
-      purchase_price
+      purchase_price,
+      fund_type,
+      bank_name
     })
 
     if (error) {

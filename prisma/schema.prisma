@@ -18,6 +18,7 @@ enum AssetType {
   STOCK
   MUTUAL_FUND
   GOLD_ETF
+  SILVER_ETF
   CASH
 }
 
