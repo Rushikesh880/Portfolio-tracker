@@ -1,4 +1,4 @@
-import { getUserDb, prepopulateSampleData, getAdminDb } from '@/lib/db'
+import { getUserDb, getAdminDb } from '@/lib/db'
 import DashboardCard from '@/components/DashboardCard'
 import AddHoldingForm from '@/components/AddHoldingForm'
 import AllocationChart from '@/components/AllocationChart'
@@ -24,16 +24,6 @@ export default async function DashboardPage() {
   }
   
   holdings = holdings || []
-
-  // Pre-populate if empty
-  if (holdings.length === 0) {
-    await prepopulateSampleData(user.id, supabase)
-    // Refetch after prepopulate
-    const { data: newHoldings } = await supabase.from('holdings').select('*').eq('user_id', user.id).order('created_at', { ascending: true })
-    holdings = newHoldings || []
-    // Also trigger a background price update since we just added new stuff
-    updatePricesInCache().catch(e => console.error(e))
-  }
 
   // Fetch price cache
   const adminDb = getAdminDb()
