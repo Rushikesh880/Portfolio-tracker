@@ -4,6 +4,7 @@ import AddHoldingForm from '@/components/AddHoldingForm'
 import AllocationChart from '@/components/AllocationChart'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
+import Link from 'next/link'
 import { updatePricesInCache } from '@/lib/prices'
 
 export const dynamic = 'force-dynamic'
@@ -94,11 +95,16 @@ export default async function DashboardPage() {
 
           </div>
         </div>
-        <form action={manualRefresh}>
-          <button className="btn btn-secondary" style={{ height: '44px', borderRadius: '10px', padding: '0 1.25rem' }}>
-            Refresh Data
-          </button>
-        </form>
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+          <Link href="/analytics" className="btn btn-primary" style={{ height: '44px', borderRadius: '10px', padding: '0 1.25rem', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+            <span>📈 Daily Trends & Insights</span>
+          </Link>
+          <form action={manualRefresh}>
+            <button className="btn btn-secondary" style={{ height: '44px', borderRadius: '10px', padding: '0 1.25rem' }}>
+              Refresh Data
+            </button>
+          </form>
+        </div>
       </header>
 
       {/* Portfolio Summary Card */}

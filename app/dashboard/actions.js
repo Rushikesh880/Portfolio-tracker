@@ -2,6 +2,7 @@
 
 import { getUserDb } from '@/lib/db'
 import { revalidatePath } from 'next/cache'
+import { clearAnalyticsCache } from '@/lib/analytics'
 
 export async function addHolding(formData) {
   const supabase = await getUserDb()
@@ -70,7 +71,9 @@ export async function addHolding(formData) {
     }
   }
 
+  clearAnalyticsCache(user.id)
   revalidatePath('/dashboard')
+  revalidatePath('/analytics')
 }
 
 export async function deleteHolding(formData) {
@@ -90,7 +93,9 @@ export async function deleteHolding(formData) {
     throw new Error('Failed to delete holding')
   }
 
+  clearAnalyticsCache(user.id)
   revalidatePath('/dashboard')
+  revalidatePath('/analytics')
 }
 
 export async function sellHolding(formData) {
@@ -140,7 +145,9 @@ export async function sellHolding(formData) {
     if (updateError) throw updateError
   }
 
+  clearAnalyticsCache(user.id)
   revalidatePath('/dashboard')
+  revalidatePath('/analytics')
 }
 
 export async function addCash(formData) {
@@ -160,7 +167,9 @@ export async function addCash(formData) {
   }).eq('id', id)
 
   if (error) throw error
+  clearAnalyticsCache(user.id)
   revalidatePath('/dashboard')
+  revalidatePath('/analytics')
 }
 
 export async function logout() {

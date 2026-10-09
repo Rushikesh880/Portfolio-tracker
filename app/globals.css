@@ -210,3 +210,17 @@ td {
 tr:hover td {
   background-color: rgba(79, 70, 229, 0.02);
 }
+
+.nav-link {
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  background-color: var(--bg-surface);
+  color: var(--primary) !important;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
